@@ -4,7 +4,7 @@ on:
 
 jobs:
   setup:
-    name: "Prepare environment"
+    name: "QC and test"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,8 +27,8 @@ jobs:
           pip install .[all]
 
           [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
-      - name: Test
-        run: pytest --no-summary --no-header --md-report --md-report-flavor gfm -o addopts='[]' --verbosity=0 >> $GITHUB_STEP_SUMMARY
-      - name: QC
+      - name: Test [pytest]
+        run: pytest --no-summary --no-header --md-report  -o addopts='[]' --verbosity=0
+      - name: QC [ruff]
         if: ${{!cancelled()}}
         uses: chartboost/ruff-action@v1
