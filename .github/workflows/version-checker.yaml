@@ -16,7 +16,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Check version of push
+      - name: Check version of ${{ github.ref }}
         id: push-version
         run: |
           VERSION=$(python3 <<EOF
@@ -38,6 +38,7 @@ jobs:
           EOF
           )
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "${VERSION}"
       - name: Checkout version of main
         uses: actions/checkout@v4
         with:
@@ -64,6 +65,7 @@ jobs:
           EOF
           )
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "${VERSION}"
       - name: Post error message
         if: ${{steps.main-version.outputs.version == steps.push-version.outputs.version}}
         run: |
