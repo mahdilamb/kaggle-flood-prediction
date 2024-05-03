@@ -7,10 +7,15 @@ jobs:
     uses: ./.github/workflows/prepare-env.yaml
     secrets: inherit
   test:
+    name: Run tests
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Run tests
-        run: |
+      - run: |
           python3 -m pytest --md-report --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
+  qc:
+    name: 'Run QC'
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: chartboost/ruff-action@v1
