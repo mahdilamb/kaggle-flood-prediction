@@ -29,11 +29,11 @@ jobs:
           [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
       
       - name: Unit tests [pytest]        
-        run: pytest --cov=ds_dynamic_pricing --cov-report term-missing
+        run: pytest --cov=flood_prediction --cov-report term-missing
       
       - name: Post test coverage
         run: coverage report --format=markdown -m >> $GITHUB_STEP_SUMMARY
       
       - name: QC [ruff]
         if: ${{!cancelled()}}
-        uses: chartboost/ruff-action@v1
+        run: ruff check flood_prediction
