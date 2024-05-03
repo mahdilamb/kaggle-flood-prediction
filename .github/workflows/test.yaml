@@ -17,7 +17,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: flood_prediction/data
-          key: ${{ runner.os }}-kaggle-dataset
+          key: kaggle-dataset
       - name: Install dependencies and ensure dataset
         run: |
           mkdir -p ~/.kaggle
@@ -28,7 +28,7 @@ jobs:
 
           [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
       - name: Test [pytest]
-        run: pytest --no-summary --no-header --md-report  -o addopts='[]' --verbosity=0
+        run: pytest --no-summary --no-header --md-report  -o addopts='[]' --verbosity=0 >> $GITHUB_STEP_SUMMARY
       - name: QC [ruff]
         if: ${{!cancelled()}}
         uses: chartboost/ruff-action@v1
