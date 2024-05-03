@@ -22,9 +22,7 @@ jobs:
           mkdir -p ~/.kaggle
           echo '${{secrets.KAGGLE_JSON}}' >> ~/.kaggle/kaggle.json
           chmod 600 /home/runner/.kaggle/kaggle.json
-          pip install pip-tools
-          make install-all
-          make dataset
+          pip install .[all]
+          [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
       - name: Run tests
-        run: |
-          python3 -m pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
+        run: python3 -m pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
