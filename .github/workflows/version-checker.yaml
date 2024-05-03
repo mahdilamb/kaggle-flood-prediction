@@ -71,3 +71,7 @@ jobs:
         run: |
           echo "::error::Version (${{steps.push-version.outputs.version}}) is the same as main (${{steps.main-version.outputs.version}})."
           exit 1
+      - name: Post summary
+        run: |
+          echo 'Version changed from ${{steps.main-version.outputs.version}} to ${{steps.push-version.outputs.version}}' >> $GITHUB_STEP_SUMMARY
+      
