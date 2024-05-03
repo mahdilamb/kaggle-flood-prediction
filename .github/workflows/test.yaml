@@ -18,8 +18,9 @@ jobs:
           path: flood_prediction/data
           key: ${{ runner.os }}-kaggle-dataset
       - run: |
+          mkdir -p ~/.kaggle
+          echo ${{secrets.KAGGLE_JSON}} >> ~/.kaggle/kaggle.json
           pip install pip-tools
           make install-all
           make dataset
-      - run:
-          pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
+      - run: pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
