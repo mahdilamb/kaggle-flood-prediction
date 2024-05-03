@@ -1,0 +1,67 @@
+name: Check version changed
+on: 
+    push:
+        branches-ignore: 'main'
+
+jobs:
+    check-version:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/setup-python@v4
+          with:
+            python-version: '3.11' 
+        - name: Check version of push
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.ref }}
+
+        - id: push-version
+          run: |
+            VERSION=$(python3 <<EOF
+            import importlib
+            import tomllib
+
+            with open("pyproject.toml", "rb") as fp:
+                data = tomllib.load(fp)
+                if version := data["project"].get("version"):
+                    print(version)
+                elif "version" in data["project"].get("dynamic", ()):
+                    how, where = next(
+                        iter(data["tool"]["setuptools"]["dynamic"]["version"].items())
+                    )
+                    if how == "attr":
+                        module_name, attr = where.rsplit(".", maxsplit=1)
+                        module = importlib.import_module(module_name)
+                        print(getattr(module, attr))
+            EOF
+            )
+            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+        - name: Check version of main
+          uses: actions/checkout@v4
+          with:
+            ref: main
+        - id: main-version
+          run: |
+            VERSION=$(python3 <<EOF
+            import importlib
+            import tomllib
+
+            with open("pyproject.toml", "rb") as fp:
+                data = tomllib.load(fp)
+                if version := data["project"].get("version"):
+                    print(version)
+                elif "version" in data["project"].get("dynamic", ()):
+                    how, where = next(
+                        iter(data["tool"]["setuptools"]["dynamic"]["version"].items())
+                    )
+                    if how == "attr":
+                        module_name, attr = where.rsplit(".", maxsplit=1)
+                        module = importlib.import_module(module_name)
+                        print(getattr(module, attr))
+            EOF
+            )
+            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"    
+        - if: ${{steps.main-version.outputs.version == steps.push-version.outputs.version}}
+          run: |
+            echo "::error::Version (${{steps.push-version.outputs.version}}) is the same as main (${{steps.main-version.outputs.version}})."
+            exit 1
