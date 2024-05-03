@@ -1,0 +1,24 @@
+name: "Run unit tests"
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Cache dataset
+        id: kaggle-dataset
+        uses: actions/cache@v4
+        with:
+          path: flood_prediction/data
+          key: ${{ runner.os }}-kaggle-dataset
+      - run: |
+          make install-all
+          make dataset
+      - run:
+          pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
