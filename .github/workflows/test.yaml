@@ -18,6 +18,7 @@ jobs:
           path: flood_prediction/data
           key: ${{ runner.os }}-kaggle-dataset
       - run: |
+          pip install pip-tools
           make install-all
           make dataset
       - run:
