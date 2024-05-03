@@ -19,7 +19,8 @@ jobs:
           key: ${{ runner.os }}-kaggle-dataset
       - run: |
           mkdir -p ~/.kaggle
-          echo ${{secrets.KAGGLE_JSON}} >> ~/.kaggle/kaggle.json
+          echo '${{secrets.KAGGLE_JSON}}' >> ~/.kaggle/kaggle.json
+          chmod 600 /home/runner/.kaggle/kaggle.json
           pip install pip-tools
           make install-all
           make dataset
