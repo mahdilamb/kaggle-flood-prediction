@@ -6,6 +6,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/prepare-env.yaml
       - name: Run tests
         run: python3 -m pytest --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
