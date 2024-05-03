@@ -29,7 +29,7 @@ jobs:
           [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
       - name: Test [pytest]
         run: |
-          coverage run -m pytest
+          pytest -o addopts='[]'
           coverage report -m --format=markdown >> $GITHUB_STEP_SUMMARY
       - name: QC [ruff]
         if: ${{!cancelled()}}
