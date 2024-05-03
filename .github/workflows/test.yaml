@@ -13,5 +13,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run tests
         run: |
-          pip install pytest-md-report
-          pytest --md-report --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
+          python3 -m pytest --md-report --cov=flood_prediction tests --cov-report term-missing >> $GITHUB_STEP_SUMMARY
