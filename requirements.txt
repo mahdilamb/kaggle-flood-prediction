@@ -4,5 +4,29 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
+joblib==1.4.2
+    # via scikit-learn
+lightgbm==4.3.0
+    # via -r requirements.in
+numpy==1.26.4
+    # via
+    #   lightgbm
+    #   pyarrow
+    #   scikit-learn
+    #   scipy
+    #   xgboost
 polars==0.20.23
+    # via -r requirements.in
+pyarrow==16.0.0
+    # via -r requirements.in
+scikit-learn==1.4.2
+    # via -r requirements.in
+scipy==1.13.0
+    # via
+    #   lightgbm
+    #   scikit-learn
+    #   xgboost
+threadpoolctl==3.5.0
+    # via scikit-learn
+xgboost==2.0.3
     # via -r requirements.in

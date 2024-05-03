@@ -13,7 +13,7 @@ version = {attr = "flood_prediction.__version__"}
 [project.optional-dependencies]
 all = ["flood-prediction[dev,eda]"]
 dev = ["pip-tools", "ruff", "flood-prediction[test]", "kaggle", 'mypy', 'pandas-stubs']
-eda = ['seaborn', 'notebook', 'ipykernel', 'statsmodels', 'pyarrow']
+eda = ['seaborn', 'notebook', 'ipykernel', 'statsmodels']
 test = ["pytest", "pytest-cov"]
 
 [tool.setuptools.package-dir]
