@@ -1,4 +1,4 @@
-.PHONY: help requirements venv install install-all qc test ruff dataset mypy
+.PHONY: help requirements venv install install-all qc test ruff dataset mypy prune-branches
 default: help
 
 PYTHON_VERSION=$(shell python3 -c "import re; print(re.findall(r'^\[project\]$$.*?^requires-python\s*?=.*?(3\.\d+).*?(?:^\[|\Z)', open('pyproject.toml', 'r').read(), flags=re.MULTILINE|re.DOTALL)[0])")
@@ -32,6 +32,11 @@ qc:  # Format and test
 
 dataset: # Download the kaggle dataset
 	@[ -f flood_prediction/data/train.csv ] || (make install-all && . .venv/bin/activate && kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
+
+prune-branches: # Remove all branches except one
+	@git branch | grep -v "${except}" | xargs git branch -D
+
+prune-branches: except=main
 
 help: # Show help for each of the Makefile recipes.
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m\n\t$$(echo $$l | cut -f 2- -d'#')\n"; done
