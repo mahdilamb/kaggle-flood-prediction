@@ -1,7 +1,7 @@
 """Methods for loading datasets."""
 
 import os
-import typing
+from typing import Literal, overload
 
 import pandas as pd
 import polars as pl
@@ -9,10 +9,12 @@ import polars as pl
 from flood_prediction import _type_aliases, constants
 
 
-@typing.overload
-def load(dataset: _type_aliases.Dataset, as_pandas: bool = False) -> pl.LazyFrame: ...
-@typing.overload
-def load(dataset: _type_aliases.Dataset, as_pandas: bool = True) -> pd.DataFrame: ...
+@overload
+def load(
+    dataset: _type_aliases.Dataset, as_pandas: Literal[False] = ...
+) -> pl.LazyFrame: ...
+@overload
+def load(dataset: _type_aliases.Dataset, as_pandas: Literal[True]) -> pd.DataFrame: ...
 
 
 def load(dataset: _type_aliases.Dataset, as_pandas: bool = False):
