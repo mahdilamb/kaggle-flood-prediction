@@ -48,4 +48,4 @@ DATASET_SCHEMA: Mapping[
         "PoliticalFactors": pl.Int64,
     }
 )
-OUTPUT_FEATURE = "FloodProbability"
+TARGET_FEATURE = "FloodProbability"

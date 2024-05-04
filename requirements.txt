@@ -4,74 +4,9 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
-catboost==1.2.5
-    # via -r requirements.in
-contourpy==1.2.1
-    # via matplotlib
-cycler==0.12.1
-    # via matplotlib
-fonttools==4.51.0
-    # via matplotlib
-graphviz==0.20.3
-    # via catboost
-joblib==1.4.2
-    # via scikit-learn
-kiwisolver==1.4.5
-    # via matplotlib
-lightgbm==4.3.0
-    # via -r requirements.in
-matplotlib==3.8.4
-    # via catboost
 numpy==1.26.4
-    # via
-    #   catboost
-    #   contourpy
-    #   lightgbm
-    #   matplotlib
-    #   pandas
-    #   pyarrow
-    #   scikit-learn
-    #   scipy
-    #   xgboost
-packaging==24.0
-    # via
-    #   matplotlib
-    #   plotly
-pandas==2.2.2
-    # via catboost
-pillow==10.3.0
-    # via matplotlib
-plotly==5.22.0
-    # via catboost
+    # via pyarrow
 polars==0.20.23
     # via -r requirements.in
 pyarrow==16.0.0
-    # via -r requirements.in
-pyparsing==3.1.2
-    # via matplotlib
-python-dateutil==2.9.0.post0
-    # via
-    #   matplotlib
-    #   pandas
-pytz==2024.1
-    # via pandas
-scikit-learn==1.4.2
-    # via -r requirements.in
-scipy==1.13.0
-    # via
-    #   catboost
-    #   lightgbm
-    #   scikit-learn
-    #   xgboost
-six==1.16.0
-    # via
-    #   catboost
-    #   python-dateutil
-tenacity==8.2.3
-    # via plotly
-threadpoolctl==3.5.0
-    # via scikit-learn
-tzdata==2024.1
-    # via pandas
-xgboost==2.0.3
     # via -r requirements.in

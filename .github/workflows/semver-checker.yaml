@@ -89,7 +89,6 @@ jobs:
               r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
           )
 
-
           def change(new: str, old: str) -> SemverAttribute:
               for group, new_val, old_val in zip(
                   get_args(SemverAttribute),
@@ -100,10 +99,7 @@ jobs:
                       return group
               raise ValueError("New and old versions are the same!")
 
-
           print(change("${{steps.push-version.outputs.version}}", "${{steps.main-version.outputs.version}}"))
-
           EOF
           )
           echo 'Version changed from `${{steps.main-version.outputs.version}}` to `${{steps.push-version.outputs.version}}`. `'$CHANGE_IN'` release' >> $GITHUB_STEP_SUMMARY
-      
