@@ -105,5 +105,5 @@ jobs:
 
           EOF
           )
-          echo 'Version changed from `${{steps.main-version.outputs.version}}` to `${{steps.push-version.outputs.version}}`. `${CHANGE_IN}` release' >> $GITHUB_STEP_SUMMARY
+          echo 'Version changed from `${{steps.main-version.outputs.version}}` to `${{steps.push-version.outputs.version}}`. `$CHANGE_IN` release' >> $GITHUB_STEP_SUMMARY
       
