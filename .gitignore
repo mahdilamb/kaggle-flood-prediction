@@ -162,3 +162,4 @@ requirements.in.md5
 /.vscode/
 /flood_prediction/data/*
 !flood_prediction/data/.gitkeep
+/flood_prediction/assets

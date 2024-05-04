@@ -1,7 +1,7 @@
 """Methods for loading datasets."""
 
 import os
-import typing
+from typing import Literal, overload
 
 import pandas as pd
 import polars as pl
@@ -9,13 +9,17 @@ import polars as pl
 from flood_prediction import _type_aliases, constants
 
 
-@typing.overload
-def load(dataset: _type_aliases.Dataset, as_pandas: bool = False) -> pl.LazyFrame: ...
-@typing.overload
-def load(dataset: _type_aliases.Dataset, as_pandas: bool = True) -> pd.DataFrame: ...
+@overload
+def load(
+    dataset: _type_aliases.Dataset, as_pandas: Literal[False] = ...
+) -> pl.LazyFrame: ...
+@overload
+def load(dataset: _type_aliases.Dataset, as_pandas: Literal[True]) -> pd.DataFrame: ...
 
 
-def load(dataset: _type_aliases.Dataset, as_pandas: bool = False):
+def load(
+    dataset: _type_aliases.Dataset, as_pandas: bool = False
+) -> pl.LazyFrame | pd.DataFrame:
     """Load either train or test dataset.
 
     See `constants.DATASET_SCHEMA` for the expected schema.
@@ -31,7 +35,10 @@ def load(dataset: _type_aliases.Dataset, as_pandas: bool = False):
         return pd.read_csv(
             os.path.join(constants.DATA_DIR, f"{dataset}.csv"), index_col=0
         )
+    schema = dict(constants.DATASET_SCHEMA.items())
+    if dataset == "train":
+        schema.update(**{constants.TARGET_FEATURE: pl.Float64})
     return pl.scan_csv(
         os.path.join(constants.DATA_DIR, f"{dataset}.csv"),
-        schema=dict(constants.DATASET_SCHEMA.items()),
+        schema=schema,
     )

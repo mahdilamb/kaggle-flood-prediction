@@ -25,4 +25,3 @@ DatasetFeature: TypeAlias = Literal[
     "InadequatePlanning",
     "PoliticalFactors",
 ]
-YFeature: TypeAlias = Literal["FloodProbability"]

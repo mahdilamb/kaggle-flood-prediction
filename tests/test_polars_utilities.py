@@ -6,12 +6,6 @@ import pytest
 from flood_prediction import utils
 
 
-@pytest.fixture(scope="session")
-def answer_df() -> pl.DataFrame:
-    """Fixture for a dataframe with a single column 'answer' containing numbers."""
-    return pl.DataFrame((pl.int_range(end=42, eager=True).alias("answer"),))
-
-
 @pytest.mark.parametrize(
     ("count", "test_size", "train_size", "expected_heights"),
     [

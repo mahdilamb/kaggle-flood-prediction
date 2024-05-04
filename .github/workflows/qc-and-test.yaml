@@ -24,12 +24,15 @@ jobs:
           echo '${{secrets.KAGGLE_JSON}}' >> ~/.kaggle/kaggle.json
           chmod 600 /home/runner/.kaggle/kaggle.json
 
-          pip install .[all]
+          pip install -e .[all]
 
           [ -f flood_prediction/data/train.csv ] || (kaggle competitions download -c playground-series-s4e5 && unzip -o playground-series-s4e5.zip -d flood_prediction/data && rm -rf playground-series-s4e5.zip && echo 'Sucessfully downloaded data to "./data"')
-      - name: Test [pytest]
+
+      - name: Unit tests [pytest]
         run: |
-          pytest --cov-report term-missing --cov=flood_prediction >> $GITHUB_STEP_SUMMARY
+          pytest --cov=flood_prediction --cov-report term-missing
+          coverage report --format=markdown -m >> $GITHUB_STEP_SUMMARY
+
       - name: QC [ruff]
         if: ${{!cancelled()}}
-        uses: chartboost/ruff-action@v1
+        run: ruff check flood_prediction
