@@ -16,7 +16,7 @@ ALWAYS_OVERWRITE: bool = False
 
 def store(
     location: str | None = None,
-    directory: str = constants.ASSETS_DIRECTORY,
+    directory: str = constants.ASSETS_DIR,
     overwrite: bool = ALWAYS_OVERWRITE,
     auto: bool = False,
 ):
