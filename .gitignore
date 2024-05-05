@@ -163,3 +163,6 @@ requirements.in.md5
 /flood_prediction/data/*
 !flood_prediction/data/.gitkeep
 /flood_prediction/assets
+/flood_prediction/checkpoints/*
+!flood_prediction/checkpoints/.gitkeep
+/catboost_info

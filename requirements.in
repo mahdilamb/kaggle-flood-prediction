@@ -1,2 +1,6 @@
 polars
 pyarrow
+lightgbm
+xgboost
+scikit-learn
+catboost

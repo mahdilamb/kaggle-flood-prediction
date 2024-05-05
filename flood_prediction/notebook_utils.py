@@ -1,7 +1,5 @@
 """Utility functions for using jupyter notebooks."""
 
-import flood_prediction
-
 
 def find_project_root() -> str:
     """Find the package root."""
@@ -14,7 +12,6 @@ def find_project_root() -> str:
 
 def init():
     """Function to reset the notebook so it works consistently."""
-    import importlib
     import subprocess
 
     print(f"Package root is '{find_project_root()}'.")
@@ -22,4 +19,3 @@ def init():
         raise RuntimeError(
             "Failed to download the dataset and/or install the requirements."
         )
-    importlib.reload(flood_prediction)

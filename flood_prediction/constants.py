@@ -12,8 +12,11 @@ from flood_prediction import _type_aliases
 PACKAGE_DIR = os.path.dirname(__file__)  # The root of the package
 ROOT_DIR = os.path.normpath(os.path.join(__file__, ".."))  # The parent to the package
 DATA_DIR = os.path.join(PACKAGE_DIR, "data")  # The location of the data
-ASSETS_DIRECTORY = os.getenv(
+ASSETS_DIR = os.getenv(
     "FLOOD_PREDICTION_ASSETS", os.path.join(ROOT_DIR, "assets")
+)
+CHECKPOINTS_DIR = os.getenv(
+    "FLOOD_PREDICTION_CHECKPOINTS", os.path.join(ROOT_DIR, "checkpoints")
 )
 TRAINING: bool = os.getenv("FLOOD_PREDICTION_TRAINING", "true").strip().lower() in (
     "1",
