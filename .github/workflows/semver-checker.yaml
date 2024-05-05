@@ -69,7 +69,7 @@ jobs:
       - name: Post error message
         if: ${{steps.main-version.outputs.version == steps.push-version.outputs.version}}
         run: |
-          echo "::error::Version (${{steps.push-version.outputs.version}}) is the same as main (${{steps.main-version.outputs.version}})."
+          echo "::error::Version has not changed (${{steps.main-version.outputs.version}})."
           exit 1
       - name: Post summary
         run: |
